@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Index {{super()}}{% endblock %}
+<!-- {{super()}} 親から継承方法 -->
+{% block content%}
+    <h1>Hello Word</h1>
+    {# 
+        # use python f-strings and Jinja
+        ```
+        query_string = f"""
+        SELECT
+            COUNT(DISTINCT case_id) AS counts
+        FROM
+            `{{{{var.value.gcp_project}}}}.{{{{var.value.dataset_prefix}}}}user.person`
+        WHERE
+            identified_on = PARSE_DATE('%Y-%m-%d', '{YESTERDAY_DATE_STR}')
+           """
+        ```
+        # return
+        ```
+        SELECT
+            COUNT(DISTINCT case_id) AS counts
+        FROM
+            `gcp_project.dataset_user.person`
+        WHERE
+            identified_on = PARSE_DATE('%Y-%m-%d', '2020-09-07')
+        ```
+    #}
+{% endblock%}
