@@ -3,11 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jinja template -->
     <!-- templateの継承 -->
     <title>{% block title %} title {% endblock %} </title>
+    <!-- Jinja template -->
 </head>
 <body>
+    <!-- Jinja template -->
     {% block content%}
     {% endblock %}
+    {# Jinja制御文
+     # {% %} if,forなどの式を記載
+     # {{ }} 値を出力
+     # \{#  #\} コメント文
+
+     # for文
+        {% for val in lists %} 
+            <li> {{ val }} </li>
+        {% endfor %}
+
+     # if文
+        {% if flag %}
+            <p> do something </p>
+        {% else if %}            
+            <p> do something </p>
+        {% else %}            
+            <p> do something </p>
+        {% end if %} 
+    #}
+    <!-- Jinja template -->
 </body>
 </html>

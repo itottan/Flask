@@ -1,23 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content%}
-    <h1>ユーザー名：{{ user_info.name }} <br> Age: {{user_info.age}}</h1>
-    <!-- Jinja制御文 -->
-    <!-- {% %} if,forなどの式を記載 -->
-    <!-- {{ }} 値を出力-->
-    <!-- {# #} コメント文-->
-    <!-- for文
-        {% for val in lists %} 
-            <li> {{ val }} </li>
-        {% endfor %}
-    -->
-    <!-- if 
-        {% if flag %}
-            <p> do something </p>
-        {% else if %}            
-            <p> do something </p>
-        {% else %}            
-            <p> do something </p>
-        {% end if %}
-    -->
+    <h1>登録成功</h1>
+    <p>ユーザー名：{{ user_info.name }} &nbsp;&nbsp; ユーザ名（カナ）: {{user_info.nameKana}}</p>
+    <p>性別：{{ user_info.gender }}</p>
+    <p>職業: {{user_info.job}}</p>
+    <p>メモ: {{user_info.msg}}</p>
 {% endblock%}

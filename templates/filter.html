@@ -1,6 +1,50 @@
 {% extends "base.html" %}
-{% block title %}Index {{super()}}{% endblock %}
-<!-- {{super()}} 親から継承方法 -->
+{% block title %}filter{% endblock %}
+<!-- Flask(template filter) -->
+<!-- 文章全体を指定 -->
+<!-- {% filter upper %} ~ {% endfilter %} -->
+<!-- 各単語をフィルタ -->
+<!-- {{ variable | filter }} -->
+<!-- 詳細参考サイト： https://jinja.palletsprojects.com/en/2.11.x/templates/#builtin-filters -->
 {% block content%}
     <h1>Hello Word</h1>
+    <h1>{{ "Hello, World" | capitalize }}</h1><!-- Hello, WORLD -->
+    <h1>{{ "Hello, World" | title }}</h1><!-- Hello, world -->
+    <h1>{{ "Hello, World" | lower }}</h1><!-- hello, html -->
+    <h1>{{ user | default("variable user dose not exist") }}</h1><!-- デフォルト値を設置したい場合 | 例外処理 -->
+    <p>
+        {{ "Jinjaについて：
+        https://jinja.palletsprojects.com/en/2.11.x/
+        （公式リンク）" | urlize }}
+    </p>
+    <!-- https://jinja.palletsprojects.com/en/2.11.x/ # リンクが自動生成される urlize(target='_blank') -->
+
+
+    <h1>ユーザー名：{{ user_info.name }} <br> Age: {{user_info.age}}</h1>
+    <!-- use format -->
+    <h1>{{ "ユーザー名：%s Age:(%s)" | format(user_info.name, user_info.age) }}</h1>
+    <!-- TODO use python f-strings & Jinja -->
+
+    <ul>
+        <!-- users is a list ['user1', 'user2', 'user3'] -->
+        <li>最初のユーザー取得：{{users|first}}</li>
+        <li>最後のユーザー取得：{{users|last}}</li>
+        <li>ソートして最初のユーザー取得：{{users|sort|first}}</li>
+        <li>ランダムでユーザー取得：{{users|random}}</li>
+
+        {% for user in users %}
+        <li>{{user|replace('user1, 太郎')}}</li> {# 指定したデータを変換して出力 #}
+        {% endfor %}
+
+        {% for user in users|reverse %} {# 逆転したリストをループ #}
+        <li>user</li>
+        {% endfor %}
+    </ul>
+
+
+    {# customize filter #}
+    {% for user in users|customize_filter %} {# ?customize_filterから変換されたリストをループ #}
+        <li>user</li>
+    {% endfor %}
+
 {% endblock%}

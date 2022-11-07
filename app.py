@@ -1,11 +1,7 @@
 #! /usr/local/Caskroom/miniconda/base/envs/flaskenv/bin/python python3
 # -*- coding: utf-8 -*-
 
-#render_templateは出力したいHtmlファイルを指定したい場合の追加機能
-from flask import Flask, render_template, redirect, url_for, abort
-# from flask import Flask, render_template ,request, redirect, url_for, abort
-
-# app = Flask(__name__, template_folder='customize_tpl_folder') #テンプレートフォルダーを別に指定したい場合　デフォルトはtemplates
+from flask import Flask, render_template ,request, redirect, url_for, abort
 app = Flask(__name__)
 
 @app.route('/')
@@ -35,16 +31,40 @@ def user(user_name, age):
         abort(500, 'インタネットサーバーエラー:該当するユーザーが存在しません。')
 
 
-@app.route('/home')
+@app.route('/home', methods=['get','post'])
 def home():
-  # print(request.full_path)
-  # print(request.method)
-  # print(request.args)
-  return render_template('home.html')
+  print(request.full_path)
+  print(request.method)
+  # Get 請求
+  # print(request.args) 
+  # POST 請求
+  print(request.form)
+  user_info= userInfo(
+    # request.args.get('userNm'),
+    # request.args.get('userNmKana'),
+    # request.args.get('job'),
+    # request.args.get('gender'),
+    # request.args.get('msg')
+    request.form.get('userNm'),
+    request.form.get('userNmKana'),
+    request.form.get('job'),
+    request.form.get('gender'),
+    request.form.get('msg')
+  )
+  return render_template('home.html', user_info= user_info)
+
+jobs=[{'val': '','name': '職業を選択してください!'},{'val': '会社員','name': '会社員'},{'val': '公務員','name': '公務員'},{'val': '自営業','name': '自営業'}] 
+class userInfo:
+    def __init__(self, userName, userNameKana, job, gender, msg):
+        self.name= userName
+        self.nameKana= userNameKana
+        self.job= job
+        self.gender= gender
+        self.msg= msg
 
 @app.route('/signup')
 def sign_up():
-    return render_template('signup.html')
+    return render_template('signup.html', jobs=jobs)
 
 # 追加したいフィルターの作成 [customizeFilterの作成する場合]
 @app.template_filter('customize_filter') 

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Form Sample{% endblock %}
+{% block content%}
+    <h1>ログイン画面</h1>
+    <form action="{{ url_for('home')}}" method="post">
+        <div>
+            <label for="userNm">お名前:</label>
+            <input type="text" name="userNm" id="Nm">
+        </div>
+        <div>
+            <label for="userNmKana">お名前(カナ):</label>
+            <input type="text" name="userNmKana" id="NmKana">
+        </div>
+        <div>
+            <label for="job">職業:</label>
+            <select name="job" id="job">
+                {% for job in jobs %}
+                <option value="{{ job.val }}">{{ job.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <input type="radio" name="gender" value="male">男性
+            <input type="radio" name="gender" value="female">女性
+            <input type="radio" name="gender" value="other">その他
+        </div>
+        <div>
+            <textarea name="msg" id="msg" cols="40" rows="4"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="送信">
+        </div>
+    </form>
+{% endblock%}
